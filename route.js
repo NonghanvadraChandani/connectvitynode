@@ -25,4 +25,26 @@ router.post('/movies', async(req, res) => {
         }
     });
 })
+
+//for updating data
+
+router.patch('/movies/:id', async(req, res) => {
+        const iMovie = await Movie.findOne({ _id: req.params.id });
+
+        iMovie.name = req.body.name;
+        iMovie.rating = req.body.rating;
+
+        await iMovie.save((err, msg) => {
+
+            if (err) {
+                res.status(500).json({ "err": err })
+            } else {
+                res.status(200).json({ "message": msg })
+            }
+        })
+    })
+    //for deleting data
+
+
+
 module.exports = router;
